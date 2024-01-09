@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 app.get("/", async (req: Request, res: Response) => {
   const data = await prisma.sampledata.findUnique({
     where: {
-      id: 1,
+      id: 3,
     },
   });
   res.send(data);
