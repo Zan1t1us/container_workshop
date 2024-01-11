@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Test1234
+      POSTGRES_USER: postgres
+      POSTGRES_DB: sampledata
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+  service:
+    build: ./service
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:Test1234@db:5432/sampledata
+    volumes:
+      - ./service:/app/
+      - /app/node_modules
